@@ -1,8 +1,0 @@
-package joeybic.jrpatrol;
-
-import javax.swing.JTable;
-
-public class JuniorTable extends JTable
-{
-
-}

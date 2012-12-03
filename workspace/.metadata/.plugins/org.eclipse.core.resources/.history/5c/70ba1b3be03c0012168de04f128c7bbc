@@ -1,8 +1,0 @@
-package joeybic.jrpatrol;
-
-import javax.swing.JPanel;
-
-public class JuniorList extends JPanel
-{
-
-}
