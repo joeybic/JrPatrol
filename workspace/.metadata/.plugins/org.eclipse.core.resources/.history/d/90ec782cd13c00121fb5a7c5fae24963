@@ -1,0 +1,116 @@
+package joeybic.jrpatrol;
+
+import java.sql.*;
+
+public class DB 
+{
+	/**
+	 * The connection to the database.
+	 */
+	private Connection connection;
+	
+	/**
+	 * Loads the mysql jdbc driver and creates the database connection.
+	 */
+	private DB()
+	{
+		loadDriver();
+		createConnection();
+	}
+	
+	/**
+	 * For holding the singleton instance. Uses block initialization pattern.
+	 * @author Joey
+	 *
+	 */
+	private static class Holder
+	{
+		public static final DB instance = new DB();
+	}
+	
+	/**
+	 * Gets the singleton instance of this class
+	 * @return The singleton instance of the database
+	 */
+	public static DB getInstance()
+	{
+		return Holder.instance;
+	}
+	
+	/**
+	 * Load the mysql jdbc driver into the driver manager.
+	 */
+	public void loadDriver()
+	{
+		// Load the driver into the driver manager
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+		}
+		catch (Exception e)
+		{
+			System.err.println("error loading mysql jdbc driver: " + e.getMessage());
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
+	
+	/**
+	 * Creates a connection to the junior patrol database on the localhost.
+	 */
+	private void createConnection()
+	{
+		connection = null;
+		try
+		{
+			connection = DriverManager.getConnection(
+					"jdbc:mysql://localhost/JrPatrol",
+					"joeybic",
+					"");
+		}
+		catch (SQLException e)
+		{
+			System.err.println("error opening connection to jr patrol database: " +
+					e.getMessage());
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
+	
+	public void open()
+	{
+	    createConnection();
+	}
+	
+	public void close()
+	{
+		if (connection == null || connection.isClosed())
+		{
+			System.err.println("error: cannot close unopened connection");
+			System.exit(-1);
+		}
+		
+		try
+		{
+			connection.close();
+		}
+		catch (SQLException e)
+		{
+			System.err.println("error closing db connection: " + e.getMessage());
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		
+		connection = null;
+	}
+	
+	/**
+	 * Gets the connection to the jr database
+	 * @return the connection instance.
+	 */
+	private Connection getConnection()
+	{	
+		return connection;
+	}
+}
+

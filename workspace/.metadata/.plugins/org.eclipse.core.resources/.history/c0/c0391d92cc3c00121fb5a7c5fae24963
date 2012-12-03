@@ -1,0 +1,22 @@
+package joeybic.jrpatrol;
+
+import java.sql.*;
+
+public class DB 
+{
+
+	private DB()
+	{
+		// TODO
+	}
+	
+	private static class Holder
+	{
+		public static final DB instance = new DB();
+	}
+	
+	public static DB instance()
+	{
+		return Holder.instance;
+	}
+}

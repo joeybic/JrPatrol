@@ -1,0 +1,14 @@
+package joeybic.jrpatrol;
+
+import javax.swing.JPanel;
+
+public class JuniorList extends JPanel
+{
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= 1L;
+	
+	private JuniorTable table;
+	
+}

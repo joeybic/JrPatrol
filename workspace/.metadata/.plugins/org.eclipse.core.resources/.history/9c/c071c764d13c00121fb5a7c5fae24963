@@ -1,0 +1,41 @@
+package joeybic.jrpatrol;
+
+import java.sql.*;
+
+public class Main 
+{
+	public static void main(String args[])
+	{
+		try
+		{
+			Statement stmt = DB.getInstance().getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM JuniorAssignments");
+			
+			while (rs.next())
+			{
+				int sid = rs.getInt("sid");
+				String sponsor = rs.getString("sponsor");
+				int jid = rs.getInt("jid");
+				String junior = rs.getString("junior");
+				int shiftid = rs.getInt("shiftid");
+				String shift = rs.getString("shift");
+				System.out.println("sid:     " + sid);
+				System.out.println("sponsor: " + sponsor);
+				System.out.println("jid:     " + jid);
+				System.out.println("junior:  " + junior);
+				System.out.println("shiftid: " + shiftid);
+				System.out.println("shfit:   " + shift);
+			}
+			
+			rs.close();
+			stmt.close();
+		}
+		catch (SQLException e)
+		{
+			System.err.println("error using sql: " + e.getMessage());
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		
+		DB.getInstance().closeConnection();
+}

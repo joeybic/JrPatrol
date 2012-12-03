@@ -1,0 +1,56 @@
+package joeybic.jrpatrol;
+
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+public class JuniorTable extends JTable
+{
+	private static final String COLUMN_NAMES[] = { "Junior ID", "Name" };
+	
+	private DefaultTableModel model;
+	
+	public JuniorTable()
+	{
+		super(new DefaultTableModel(JuniorTable.COLUMN_NAMES, 1));
+		
+		model = (DefaultTableModel)getModel();
+		
+		setFillsViewportHeight(true);
+		setShowGrid(true);
+		setColumnSelectionAllowed(false);
+		setRowSelectionAllowed(false);
+		setCellSelectionEnabled(false);
+		setVisible(true);
+		// Populate with information from the database
+		parseDB();
+	}
+	
+	public void parseDB()
+	{
+		DB db = DB.getInstance();
+		try
+		{
+			PreparedStatement stmt = db.getConnection().prepareStatement(
+					"SELECT * FROM Juniors");
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next())
+			{
+				Object data[] = new Object[2];
+				data[0] = new Integer(rs.getInt("jid"));
+				data[1] = rs.getString("name");
+				model.addRow(data);
+			}
+			
+			rs.close();
+			stmt.close();
+		}
+		catch (SQLException e)
+		{
+			System.err.println("error during db transaction: " + e.getMessage());
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
+}

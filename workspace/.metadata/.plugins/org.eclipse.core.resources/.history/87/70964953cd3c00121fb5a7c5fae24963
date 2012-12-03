@@ -1,0 +1,64 @@
+package joeybic.jrpatrol;
+
+import java.sql.*;
+
+public class DB 
+{
+	/**
+	 * The connection to the database.
+	 */
+	private Connection connection;
+	
+	/**
+	 * Loads the mysql jdbc driver and creates the database connection.
+	 */
+	private DB()
+	{
+		// TODO
+	}
+	
+	/**
+	 * For holding the singleton instance. Uses block initialization pattern.
+	 * @author Joey
+	 *
+	 */
+	private static class Holder
+	{
+		public static final DB instance = new DB();
+	}
+	
+	/**
+	 * Gets the singleton instance of this class
+	 * @return The singleton instance of the database
+	 */
+	public static DB instance()
+	{
+		return Holder.instance;
+	}
+	
+	/**
+	 * Load the mysql jdbc driver into the driver manager.
+	 */
+	public void loadDriver()
+	{
+		// Load the driver into the driver manager
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+		}
+		catch (Exception e)
+		{
+			System.err.println("error loading mysql jdbc driver: " + e.getMessage());
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
+	
+	/**
+	 * Creates a connection to the junior patrol database on the localhost
+	 */
+	public void createConnection()
+	{
+		
+	}
+}

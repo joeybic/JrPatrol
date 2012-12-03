@@ -1,0 +1,11 @@
+package joeybic.jrpatrol;
+
+import java.sql.*;
+
+public class Main 
+{
+	public void main(String args[])
+	{
+		Statement stmt = DB.getInstance().
+	}
+}

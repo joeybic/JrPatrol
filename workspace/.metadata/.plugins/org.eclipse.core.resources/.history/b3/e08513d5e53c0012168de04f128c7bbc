@@ -1,0 +1,24 @@
+package joeybic.jrpatrol;
+
+import javax.swing.*;
+import javax.swing.event.*;
+
+public class JuniorList extends JPanel
+{
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= 1L;
+	
+	private JuniorTable table;
+	
+	public JuniorList()
+	{
+		super();
+		
+		table = new JuniorTable();
+		JScrollPane scroller = new JScrollPane(table);
+		add(scroller);
+		add
+	
+}

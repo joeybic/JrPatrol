@@ -1,0 +1,13 @@
+package joeybic.jrpatrol;
+
+import javax.swing.JPanel;
+
+public abstract class BasePanel extends JPanel
+{
+	public BasePanel()
+	{
+		super();
+	}
+	
+	public abstract void refresh();
+}

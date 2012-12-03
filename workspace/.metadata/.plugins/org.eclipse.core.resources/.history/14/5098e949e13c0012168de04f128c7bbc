@@ -1,0 +1,10 @@
+package joeybic.jrpatrol;
+
+import javax.swing.*;
+
+public class JuniorTable extends JTable
+{
+	public JuniorTable()
+	{
+		super(null, 
+}

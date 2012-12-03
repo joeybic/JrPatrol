@@ -1,0 +1,14 @@
+package joeybic.jrpatrol;
+
+import java.sql.*;
+
+public class Main 
+{
+	public void main(String args[])
+	{
+		try
+		{
+			Statement stmt = DB.getInstance().getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM JuniorAssignments");
+	}
+}

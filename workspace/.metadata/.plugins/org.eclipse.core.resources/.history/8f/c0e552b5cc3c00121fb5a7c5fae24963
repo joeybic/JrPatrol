@@ -1,0 +1,31 @@
+package joeybic.jrpatrol;
+
+import java.sql.*;
+
+public class DB 
+{
+
+	private DB()
+	{
+		// TODO
+	}
+	
+	/**
+	 * For holding the singleton instance. Uses block initialization pattern.
+	 * @author Joey
+	 *
+	 */
+	private static class Holder
+	{
+		public static final DB instance = new DB();
+	}
+	
+	/**
+	 * Gets the singleton instance of this class
+	 * @return The singleton instance of the database
+	 */
+	public static DB instance()
+	{
+		return Holder.instance;
+	}
+}

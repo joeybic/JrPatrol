@@ -1,0 +1,19 @@
+package joeybic.jrpatrol;
+
+import javax.swing.*;
+
+public class JuniorTable extends JTable
+{
+	private static final String COLUMN_NAMES[] = { "Junior ID", "Name" };
+	public JuniorTable()
+	{
+		super(null, JuniorTable.COLUMN_NAMES);
+		
+		setFillsViewportHeight(true);
+		setShowGrid(true);
+		setColumnSelectionAllowed(false);
+		setRowSelectionAllowed(false);
+		setCellSelectionEnabled(false);
+		
+		
+}

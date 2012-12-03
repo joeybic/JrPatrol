@@ -1,0 +1,13 @@
+package joeybic.jrpatrol;
+
+import java.sql.*;
+
+public class Main 
+{
+	public static void main(String args[])
+	{
+		DB.getInstance().openConnection();
+		MainFrame frame = new MainFrame();
+		DB.getInstance().closeConnection();
+	}
+}
