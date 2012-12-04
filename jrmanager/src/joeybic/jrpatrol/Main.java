@@ -3,6 +3,8 @@ package joeybic.jrpatrol;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import joeybic.jrpatrol.ui.MainFrame;
+
 public class Main 
 {
 	/**

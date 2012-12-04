@@ -10,6 +10,8 @@ import java.sql.Connection;
 
 import joeybic.jrpatrol.*;
 import joeybic.jrpatrol.db.DB;
+import joeybic.jrpatrol.ui.BasePopupPanel;
+import joeybic.jrpatrol.ui.MainFrame;
 
 public class AddJuniorPanel extends BasePopupPanel
 {

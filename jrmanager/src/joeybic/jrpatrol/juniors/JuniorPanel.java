@@ -2,7 +2,7 @@ package joeybic.jrpatrol.juniors;
 
 import javax.swing.*;
 
-import joeybic.jrpatrol.BasePanel;
+import joeybic.jrpatrol.ui.BasePanel;
 
 public class JuniorPanel extends BasePanel
 {

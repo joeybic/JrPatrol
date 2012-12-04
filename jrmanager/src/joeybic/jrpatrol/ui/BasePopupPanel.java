@@ -1,4 +1,4 @@
-package joeybic.jrpatrol;
+package joeybic.jrpatrol.ui;
 
 import javax.swing.JPanel;
 import javax.swing.Popup;

@@ -1,12 +1,13 @@
 /**
  * 
  */
-package joeybic.jrpatrol;
+package joeybic.jrpatrol.ui;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 
+import joeybic.jrpatrol.Main;
 import joeybic.jrpatrol.db.*;
 
 /**
