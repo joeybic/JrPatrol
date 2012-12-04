@@ -2,29 +2,46 @@ package joeybic.jrpatrol.juniors;
 
 import javax.swing.*;
 
-import joeybic.jrpatrol.ui.BasePanel;
+import joeybic.jrpatrol.ui.*;
+import joeybic.jrpatrol.ui.DBDisplayTable.ColumnType;
 
-public class JuniorPanel extends BasePanel
+public class JuniorPanel extends BaseDBDisplayPanel
 {
 	/**
 	 * 
 	 */
 	private static final long	serialVersionUID	= 1L;
 	
-	private JuniorTable table;
+	/**
+	 * The query to pose
+	 */
+	private static final String QUERY = 
+		"SELECT jid, name FROM Juniors";
+	
+	private static final String COLUMN_LABELS[] =
+	{
+		"Junior ID",
+		"Name"
+	};
+	
+	private static final String COLUMN_NAMES[] =
+	{
+		"jid",
+		"name"
+	};
+	
+	private static final ColumnType COLUMN_TYPES[] =
+	{
+		ColumnType.INT,
+		ColumnType.STRING
+	};
 	
 	public JuniorPanel()
 	{
-		super(new JuniorEditMenu());
-		
-		table = new JuniorTable();
-		JScrollPane scroller = new JScrollPane(table);
-		add(scroller);
-		setVisible(true);
-	}
-	
-	public void refresh()
-	{
-		table.parseDB();
+		super(new JuniorEditMenu(),
+			  QUERY,
+			  COLUMN_LABELS,
+			  COLUMN_NAMES,
+			  COLUMN_TYPES);
 	}
 }
