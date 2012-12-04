@@ -6,6 +6,7 @@ import javax.swing.event.MenuListener;
 
 import java.awt.event.*;
 
+import joeybic.jrpatrol.ui.*;
 import joeybic.jrpatrol.*;
 import joeybic.jrpatrol.db.*;
 
@@ -22,7 +23,7 @@ public class JuniorEditMenu extends JMenu
 	/**
 	 * The menu item for adding a junior
 	 */
-	private AddJuniorMenuItem addJunior = null;
+	private SpawnPopupMenuItem addJunior = null;
 	
 	/**
 	 * A listener for when the menu is opened
@@ -73,7 +74,7 @@ public class JuniorEditMenu extends JMenu
 		addMenuListener(menuListener);
 		
 		// Create and add the add junior button
-		addJunior = new AddJuniorMenuItem();
+		addJunior = new SpawnPopupMenuItem("Add Junior", new AddJuniorPanel());
 		add(addJunior);
 	}
 	
@@ -81,70 +82,8 @@ public class JuniorEditMenu extends JMenu
 	 * Get the addjunior item
 	 * @return teh add junior button
 	 */
-	public AddJuniorMenuItem getAddJuniorItem()
+	public SpawnPopupMenuItem getAddJuniorItem()
 	{
 		return addJunior;
-	}
-}
-
-/**
- * For adding a junior
- */
-class AddJuniorMenuItem extends JMenuItem implements ActionListener
-{
-	/**
-	 * IDK what this is for.
-	 */
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * The text to display on this menu item
-	 */
-	public static final String TEXT = "Add Junior";
-	
-	/**
-	 * The add junior popup panel
-	 */
-	private AddJuniorPanel popupContent = null;
-	
-	/**
-	 * The action listener implementation
-	 */
-	@Override
-	public void actionPerformed(ActionEvent evt)
-	{
-		// Disable the control
-		setEnabled(false);
-		
-		// Calculate the location at which to add the popup
-		int x = Main.getFrame().getX() + 
-				(Main.getFrame().getWidth() - popupContent.getWidth()) / 2;
-		int y = Main.getFrame().getContentPane().getLocationOnScreen().y + 10;
-		
-		// Spawn the popup
-		Popup popup = PopupFactory.getSharedInstance().getPopup(Main.getFrame(),
-				popupContent,
-				x, y);
-		
-		// Give the panel a reference to the popup
-		popupContent.setPopup(popup);
-		
-		// Show the popup
-		popup.show();
-	}
-	
-	/**
-	 * Initialize a new menu item
-	 */
-	public AddJuniorMenuItem()
-	{
-		// Invoke parent constructor and set the name of the button
-		super(AddJuniorMenuItem.TEXT);
-		
-		// Add itself as an action listener
-		addActionListener(this);
-		
-		// Create the popup content panel
-		popupContent = new AddJuniorPanel();
 	}
 }

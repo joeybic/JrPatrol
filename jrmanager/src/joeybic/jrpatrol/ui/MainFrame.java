@@ -6,7 +6,8 @@ import java.awt.event.*;
 import java.awt.*;
 
 import joeybic.jrpatrol.db.*;
-import joeybic.jrpatrol.juniors.JuniorPanel;
+import joeybic.jrpatrol.juniors.*;
+import joeybic.jrpatrol.sponsors.*;
 
 public class MainFrame extends JFrame
 {
@@ -49,7 +50,7 @@ public class MainFrame extends JFrame
 				menuBar.remove(1);
 			}
 			
-			System.out.println("Adding...");
+			//System.out.println("Adding...");
 			menuBar.add(panel.getEditMenu(), 1);
 			if (panel != null)
 			{
@@ -124,11 +125,15 @@ public class MainFrame extends JFrame
 		JuniorPanel jp = new JuniorPanel();
 		pane.addTab("Junior Roster", jp);
 		
+		SponsorPanel sp = new SponsorPanel();
+		pane.addTab("Sponsors", sp);
+		
 		// Add the change listener
 		pane.addChangeListener(changeListener);
 		
 		// Add tab panel
 		add(pane);
+		
 		
 		menuBar.add(jp.getEditMenu());
 		// Make me visible!
