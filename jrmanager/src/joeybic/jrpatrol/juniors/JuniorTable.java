@@ -15,20 +15,45 @@ public class JuniorTable extends JTable
 
 	private static final String COLUMN_NAMES[] = { "Junior ID", "Name" };
 	
-	private DefaultTableModel model;
+	private static final String SELECT_JUNIORS =
+			"SELECT * FROM Juniors ORDER BY jid";
+	
+	private DefaultTableModel model = new DefaultTableModel(COLUMN_NAMES, 1)
+	{
+		/**
+		 * IDK what this is.
+		 */
+		private static final long serialVersionUID = 1L;
+		
+		/**
+		 * Make all the cells not editable
+		 */
+		@Override
+		public boolean isCellEditable(int r, int c)
+		{
+			return false;
+		}
+	};
 	
 	public JuniorTable()
 	{
-		super(new DefaultTableModel(JuniorTable.COLUMN_NAMES, 1));
+		super();
+		setModel(model);
 		
-		model = (DefaultTableModel)getModel();
-		
+		// Make it big!
 		setFillsViewportHeight(true);
+		
+		// Draw the grid lines
 		setShowGrid(true);
-		setEnabled(false);
-		setVisible(true);
+		
+		// Allow row selection
+		setRowSelectionAllowed(true);
+		
 		// Populate with information from the database
 		parseDB();
+		
+		// Show!
+		setVisible(true);
 	}
 	
 	public void parseDB()
@@ -36,10 +61,16 @@ public class JuniorTable extends JTable
 		clear();
 		
 		DB db = DB.getInstance();
+		
+		if (! db.getIsConnected())
+		{
+			return;
+		}
+		
 		try
 		{
 			PreparedStatement stmt = db.getConnection().prepareStatement(
-					"SELECT * FROM Juniors");
+					SELECT_JUNIORS);
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next())

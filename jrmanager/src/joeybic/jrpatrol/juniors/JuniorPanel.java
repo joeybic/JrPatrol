@@ -15,7 +15,7 @@ public class JuniorPanel extends BasePanel
 	
 	public JuniorPanel()
 	{
-		super();
+		super(new JuniorEditMenu());
 		
 		table = new JuniorTable();
 		JScrollPane scroller = new JScrollPane(table);

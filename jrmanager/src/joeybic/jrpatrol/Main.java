@@ -1,6 +1,7 @@
 package joeybic.jrpatrol;
 
-import java.sql.*;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main 
 {
@@ -15,7 +16,47 @@ public class Main
 	 */
 	public static void main(String args[])
 	{
+		Main.setLookAndFeel();
 		frame = new MainFrame();
+	}
+	
+	/**
+	 * Sets the look and feel to use the system look and feel
+	 */
+	public static void setLookAndFeel()
+	{
+		// Set the look and feel to the system L&F
+		try
+		{
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch (UnsupportedLookAndFeelException e)
+		{
+			Main.handleLookAndFeelError(e);
+		}
+		catch (ClassNotFoundException e)
+		{
+			Main.handleLookAndFeelError(e);
+		}
+		catch (InstantiationException e)
+		{
+			Main.handleLookAndFeelError(e);
+		}
+		catch (IllegalAccessException e)
+		{
+			Main.handleLookAndFeelError(e);
+		}	
+	}
+		
+	/**
+	 * Print the error message and exits with code -1
+	 */
+	private static <T extends Exception> void handleLookAndFeelError(T e)
+	{
+		System.err.println("error setting look and feel: " +
+				e.getMessage());
+		e.printStackTrace();
+		System.exit(-1);
 	}
 	
 	/**

@@ -66,9 +66,12 @@ public class DB
 								  String password)
 		throws SQLException, ConnectionException
 	{
-		if (connection != null || ! connection.isClosed())
+		if (connection != null)
 		{
-			throw new ConnectionException("connection already exists");
+			if (! connection.isClosed())
+			{
+				throw new ConnectionException("connection already exists");
+			}
 		}
 		
 		connection = DriverManager.getConnection(
@@ -76,6 +79,9 @@ public class DB
 				userName, password);
 	}
 	
+	/**
+	 * Destroy a connection
+	 */
 	private void destroyConnection()
 		throws ConnectionException, SQLException
 	{

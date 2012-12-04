@@ -3,6 +3,7 @@ package joeybic.jrpatrol;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.*;
+import java.awt.*;
 
 import joeybic.jrpatrol.db.*;
 import joeybic.jrpatrol.juniors.JuniorPanel;
@@ -25,6 +26,11 @@ public class MainFrame extends JFrame
 	private static final long	serialVersionUID	= 1L;
 	
 	/**
+	 * The tabbed pane!
+	 */
+	private JTabbedPane pane = null;
+	
+	/**
 	 * The listener for tab change.
 	 * 
 	 * Retrieves the source object (as a JTabbedPane), gets the current index
@@ -37,6 +43,14 @@ public class MainFrame extends JFrame
 			JTabbedPane pane = (JTabbedPane)evt.getSource();
 			BasePanel panel = (BasePanel)pane.getSelectedComponent();
 			
+			if (menuBar.getComponentCount() >= 2)
+			{
+				// Remove the current edit menu and add the new one in it's place.
+				menuBar.remove(1);
+			}
+			
+			System.out.println("Adding...");
+			menuBar.add(panel.getEditMenu(), 1);
 			if (panel != null)
 			{
 				panel.refresh();
@@ -83,27 +97,40 @@ public class MainFrame extends JFrame
 	{
 		super();
 		
-		setSize(800, 600);
+		setSize(MainFrame.WIDTH, MainFrame.HEIGHT);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Junior Manager");
 		
+
+		
+		
 		addWindowListener(closeListener);
 		
-		JTabbedPane pane = new JTabbedPane();
-		pane.addChangeListener(changeListener);
+		// Create the tab pane
+		pane = new JTabbedPane();
 		
-		// Add Tabs
-		pane.addTab("Junior Roster", new JuniorPanel());
-		
-		// Add tab panel
-		add(pane);
+		// Create and add the menu bar
+		menuBar = new MainMenuBar();
+		setJMenuBar(menuBar);
 		
 		// Create the status bar
 		statusBar = new JLabel("Status: ", JLabel.LEFT);
 		
 		// Add the status bar
-		add(statusBar);
+		add(statusBar, BorderLayout.SOUTH);
+	
+		// Add Tabs
+		JuniorPanel jp = new JuniorPanel();
+		pane.addTab("Junior Roster", jp);
 		
+		// Add the change listener
+		pane.addChangeListener(changeListener);
+		
+		// Add tab panel
+		add(pane);
+		
+		menuBar.add(jp.getEditMenu());
 		// Make me visible!
 		setVisible(true);
 	}
@@ -112,17 +139,32 @@ public class MainFrame extends JFrame
 	 * Set the status bar text to the given value
 	 * @param status the new text to display in the status bar
 	 */
-	void setStatus(String status)
+	public void setStatus(String status)
 	{
 		statusBar.setText("Status: " + status);
 	}
 	
 	/**
-	 * Get the main menu bar for the frame
-	 * @return a reference to the main menu bar
+	 * Get the main menu bar (the built in method is insufficient).
+	 * @return the MAIN menu bar
 	 */
-	public MainMenuBar getMenuBar()
+	public MainMenuBar getMainMenuBar()
 	{
 		return menuBar;
+	}
+	
+	/**
+	 * Refresh the current pane in the tab pane
+	 */
+	public void refreshCurrentTab()
+	{
+		BasePanel current = (BasePanel)pane.getSelectedComponent();
+		current.refresh();
+	}
+	
+	public JMenu getEditMenu()
+	{
+		BasePanel panel = (BasePanel)pane.getSelectedComponent();
+		return panel.getEditMenu();
 	}
 }

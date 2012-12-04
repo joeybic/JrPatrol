@@ -15,16 +15,20 @@ import joeybic.jrpatrol.db.*;
  */
 public class MainMenuBar extends JMenuBar 
 {
+	/**
+	 * IDK what this is.  Added automatically by eclipse.
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	//////////////////////////////////////
 	/////////////  DB MENU  //////////////
 	//////////////////////////////////////
-	
+
 	/**
 	 * The DB Menu
 	 * 
 	 * Has items:
 	 * - Connect/Disconnect
-	 * - Exit
 	 */
 	private JMenu dbMenu = null;
 	
@@ -44,11 +48,6 @@ public class MainMenuBar extends JMenuBar
 	 * The label text for the connect menu item when the db is connected.
 	 */
 	private static final String CONNECTLABEL_DISCONNECT = "Disconnect";
-	
-	/**
-	 * The exit menu item. Nuff said.
-	 */
-	private JMenuItem dbMenuExit = null;
 	
 	/**
 	 * Listener for the db menu for updating the status of the connect button
@@ -105,8 +104,10 @@ public class MainMenuBar extends JMenuBar
 				dbMenuConnect.setEnabled(false);
 				
 				// Calculate the position at which the popup should appear
-				int x = (MainFrame.WIDTH - ConnectPopup.WIDTH) / 2;
-				int y = (MainFrame.HEIGHT - ConnectPopup.HEIGHT) / 2;
+				int x = Main.getFrame().getX() + 
+						(Main.getFrame().getContentPane().getWidth() - 
+								connectPopup.getWidth()) / 2;
+				int y = Main.getFrame().getContentPane().getLocationOnScreen().y + 10;
 				
 				// Reset the popup content
 				connectPopup.reset();
@@ -146,6 +147,7 @@ public class MainMenuBar extends JMenuBar
 				try
 				{
 					DB.getInstance().closeConnection();
+					Main.getFrame().setStatus("Success.");
 				}
 				catch (ConnectionException e)
 				{
@@ -161,6 +163,9 @@ public class MainMenuBar extends JMenuBar
 					
 					// Update the button text
 					dbMenuListener.menuSelected(null);
+					
+					// Update the current pane
+					Main.getFrame().refreshCurrentTab();
 				}	
 			}
 		};
@@ -177,5 +182,35 @@ public class MainMenuBar extends JMenuBar
 	public JMenu getDBMenu()
 	{
 		return dbMenu;
+	}
+	
+	/**
+	 * Build the menu bar with default values
+	 */
+	public MainMenuBar()
+	{
+		// Parent constructor
+		super();
+		
+		// Create the db menu
+		dbMenu = new JMenu("Database");
+		dbMenu.addMenuListener(dbMenuListener);
+		
+		// Add the connect button to the menu bar
+		dbMenuConnect = new JMenuItem(MainMenuBar.CONNECTLABEL_CONNECT);
+		dbMenuConnect.addActionListener(dbMenuConnectListener);
+		dbMenu.add(dbMenuConnect);
+		
+		// Add the db menu
+		add(dbMenu, 0);
+		
+		// Add the current edit menu
+		//add(Main.getFrame().getEditMenu(), 1);
+		
+		// Create the popup panel
+		connectPopup  = new ConnectPopup();
+		
+		// Show up!
+		setVisible(true);
 	}
 }
