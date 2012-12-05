@@ -1,7 +1,7 @@
 package joeybic.jrpatrol.sponsors;
 
 import joeybic.jrpatrol.ui.*;
-import joeybic.jrpatrol.ui.DBDisplayTable.ColumnType;
+import joeybic.jrpatrol.*;
 
 public class SponsorPanel extends BaseDBDisplayPanel
 {
@@ -20,10 +20,10 @@ public class SponsorPanel extends BaseDBDisplayPanel
 		"name"
 	};
 	
-	private static final ColumnType COLUMN_TYPES[] =
+	private static final EntryType COLUMN_TYPES[] =
 	{
-		ColumnType.INT,
-		ColumnType.STRING
+		EntryType.INTEGER,
+		EntryType.STRING
 	};
 	
 	public SponsorPanel()

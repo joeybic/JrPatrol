@@ -4,21 +4,11 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.sql.*;
 
-import joeybic.jrpatrol.Main;
+import joeybic.jrpatrol.*;
 import joeybic.jrpatrol.db.*;
 
 public class DBDisplayTable extends JTable
 {
-	/**
-	 * Column Types
-	 */
-	public enum ColumnType
-	{
-		INT,
-		DOUBLE,
-		STRING
-	};
-	
 	/**
 	 * IDK what this is. 
 	 */
@@ -42,12 +32,12 @@ public class DBDisplayTable extends JTable
 	/**
 	 * The type of each column
 	 */
-	private ColumnType columnTypes[];
+	private EntryType columnTypes[];
 	
 	/**
 	 * The types of any arguments to a prepared statment the query might use.
 	 */
-	private ColumnType preparedTypes[];
+	private EntryType preparedTypes[];
 	
 	/**
 	 * The data model used
@@ -65,7 +55,7 @@ public class DBDisplayTable extends JTable
 	public DBDisplayTable(String query,
 						  String columnLabels[],
 						  String columnNames[],
-						  ColumnType columnTypes[])
+						  EntryType columnTypes[])
 	{
 		this(query, columnLabels, columnNames, columnTypes, null);
 	}
@@ -81,8 +71,8 @@ public class DBDisplayTable extends JTable
 	public DBDisplayTable(String query,
 						  String columnLabels[],
 						  String columnNames[],
-						  ColumnType columnTypes[],
-						  ColumnType preparedTypes[])
+						  EntryType columnTypes[],
+						  EntryType preparedTypes[])
 		throws IllegalArgumentException
 	{
 		// Invoke the super constructor
@@ -182,7 +172,7 @@ public class DBDisplayTable extends JTable
 			{
 				switch (preparedTypes[i])
 				{
-					case INT:
+					case INTEGER:
 						Integer ivalue = (Integer)args[i];
 						stmt.setInt(i + 1, ivalue);
 						break;
@@ -211,7 +201,7 @@ public class DBDisplayTable extends JTable
 				{
 					switch (columnTypes[i])
 					{
-						case INT:
+						case INTEGER:
 							data[i] = rs.getInt(columnNames[i]);
 							break;
 							
@@ -269,7 +259,7 @@ public class DBDisplayTable extends JTable
 	 * @param columnTypes	The types of the columns to search for
 	 */
 	public void setColumnInfo(String columnLabels[], String columnNames[],
-			ColumnType columnTypes[])
+			EntryType columnTypes[])
 	{
 		// Make sure our arguments are valid
 		if (! (columnLabels.length == columnNames.length && 
@@ -307,7 +297,7 @@ public class DBDisplayTable extends JTable
 	 * Get the column types
 	 * @return an array of column types
 	 */
-	public ColumnType[] getColumnTypes()
+	public EntryType[] getEntryTypes()
 	{
 		return columnTypes;
 	}
@@ -316,7 +306,7 @@ public class DBDisplayTable extends JTable
 	 * Set the prepared statement types
 	 * @param preparedTypes the new array of prepared statement argument types
 	 */
-	public void setPreparedTypes(ColumnType preparedTypes[])
+	public void setPreparedTypes(EntryType preparedTypes[])
 	{
 		this.preparedTypes = preparedTypes;
 	}
@@ -325,7 +315,7 @@ public class DBDisplayTable extends JTable
 	 * Get the prepared statement types
 	 * @return an array of the prepared statement types
 	 */
-	public ColumnType[] getPreparedTypes()
+	public EntryType[] getPreparedTypes()
 	{
 		return preparedTypes;
 	}

@@ -1,6 +1,8 @@
 package joeybic.jrpatrol.ui;
 
 import javax.swing.*;
+
+import joeybic.jrpatrol.*;
 import joeybic.jrpatrol.ui.*;
 
 public class BaseDBDisplayPanel extends BasePanel
@@ -22,7 +24,7 @@ public class BaseDBDisplayPanel extends BasePanel
 							  String query,
 							  String columnLabels[],
 							  String columnNames[],
-							  DBDisplayTable.ColumnType columnTypes[])
+							  EntryType columnTypes[])
 	{
 		this(editMenu, query, columnLabels, columnNames, columnTypes, null);
 	}
@@ -40,8 +42,8 @@ public class BaseDBDisplayPanel extends BasePanel
 							  String query,
 							  String columnLabels[],
 							  String columnNames[],
-							  DBDisplayTable.ColumnType columnTypes[],
-							  DBDisplayTable.ColumnType preparedTypes[])
+							  EntryType columnTypes[],
+							  EntryType preparedTypes[])
 	{
 		super(editMenu);
 		
