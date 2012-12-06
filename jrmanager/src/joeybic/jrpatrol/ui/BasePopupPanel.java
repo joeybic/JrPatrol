@@ -1,8 +1,6 @@
 package joeybic.jrpatrol.ui;
 
-import javax.swing.JPanel;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
+import javax.swing.*;
 
 import joeybic.jrpatrol.Main;
 
@@ -12,6 +10,22 @@ public class BasePopupPanel extends JPanel
 	 * The parent popup
 	 */
 	protected Popup popup;
+	
+	/**
+	 * A control to disable when the popup gets shown
+	 * If null, this behavior is disabled.
+	 */
+	private JComponent associatedControl;
+	
+	public JComponent getAssociatedControl()
+	{
+		return associatedControl;
+	}
+	
+	public void setAssociatedControl(JComponent associatedControl)
+	{
+		this.associatedControl = associatedControl;
+	}
 	
 	/**
 	 * Get the parent popup
@@ -54,7 +68,10 @@ public class BasePopupPanel extends JPanel
 	public void showPopup()
 	{
 		// Disable the control
-		setEnabled(false);
+		if (associatedControl != null)
+		{
+			associatedControl.setEnabled(false);
+		}
 		
 		// Calculate the location at which to add the popup
 		int x = Main.getFrame().getX() + 
@@ -78,6 +95,11 @@ public class BasePopupPanel extends JPanel
 	 */
 	public void hidePopup()
 	{
+		if (associatedControl != null)
+		{
+			associatedControl.setEnabled(true);
+		}
+		
 		popup.hide();
 		popup = null;
 	}

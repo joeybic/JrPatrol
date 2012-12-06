@@ -3,9 +3,11 @@ package joeybic.jrpatrol.ui;
 // System
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.*;
 
 // Internal
 import joeybic.jrpatrol.*;
+import joeybic.jrpatrol.db.*;
 
 /**
  * A popup dialog for adding new entries on a given page
@@ -33,12 +35,6 @@ public class BaseAddEntryPanel extends BasePopupPanel
 	 * (also where we get our data from)
 	 */
 	private BaseAddEntryContentPanel contentPanel;
-	
-	/**
-	 * A control to disable when the popup gets shown
-	 * If null, this behavior is disabled.
-	 */
-	private JComponent associatedControl;
 	
 	/**
 	 * An action listener for the action button
@@ -72,15 +68,8 @@ public class BaseAddEntryPanel extends BasePopupPanel
 			// Use the content panel to set the status message
 			Main.getFrame().setStatus(contentPanel.getStatusMessage());
 			
-			// Load all of our data out of the the content pane
-			Object data[] = new Object[contentPanel.getFieldCount()];
-			for (int i = 0; i < contentPanel.getFieldCount(); i++)
-			{
-				data[i] = contentPanel.getFieldValue(fieldNames[i]);
-			}
-			
 			// Create the runner to use
-			Runnable runner = new AddEntryRunner(this, data);
+			Runnable runner = new AddEntryRunner(this);
 			
 			// Create the running thread
 			Thread thread = new Thread(runner);
@@ -91,5 +80,92 @@ public class BaseAddEntryPanel extends BasePopupPanel
 			// Get rid of the popup
 			getPanel().hidePopup();
 		}
-	};			
+	};	
+	
+	public String getUpdateString()
+	{
+		return updateString;
+	}
+	
+	public String [] getFieldNames()
+	{
+		return fieldNames;
+	}
+	
+	/**
+	 * Get the associated content panel
+	 * @return ref to the content panel
+	 */
+	public BaseAddEntryContentPanel getContentPanel()
+	{
+		return contentPanel;
+	}
 }
+
+class AddEntryRunner implements Runnable
+{
+	private BaseAddEntryPanel panel;
+	
+	public AddEntryRunner(BaseAddEntryPanel panel)
+	{
+		this.panel = panel;
+	}
+	
+	@Override
+	public void run()
+	{
+		DB db = DB.getInstance();
+		if (! db.getIsConnected())
+		{
+			Main.getFrame().setStatus("Failed. No Connection.");
+		}
+		
+		// Execute
+		try
+		{
+			PreparedStatement stmt = db.getConnection().prepareStatement(
+					panel.getUpdateString());
+			
+			BaseAddEntryContentPanel contentPanel = panel.getContentPanel();
+			Object data;
+			EntryType type;
+			String fieldNames[] = panel.getFieldNames();
+			for (int i = 0; i < contentPanel.getFieldCount(); i++)
+			{
+				type = contentPanel.getFieldType(fieldNames[i]);
+				data = contentPanel.getFieldValue(fieldNames[i]);
+				
+				// Add the data to the query
+				switch (type)
+				{
+					case INTEGER:
+						stmt.setInt(i + 1, (Integer)data);
+						break;
+				
+					case DOUBLE:
+						stmt.setDouble(i + 1, (Double)data);
+						break;
+					
+					case STRING:
+						stmt.setString(i + 1, (String)data);
+						break;
+				}
+			}
+			
+			stmt.executeUpdate();
+			stmt.close();
+			
+			Main.getFrame().setStatus("Success.");
+		}
+		catch (SQLException e)
+		{
+			Main.getFrame().setStatus("Failed. SQL Error.");
+			System.err.println("error adding entry to db: " + e.getMessage());
+		}
+		
+		panel.hidePopup();
+	}
+}
+	
+	
+	

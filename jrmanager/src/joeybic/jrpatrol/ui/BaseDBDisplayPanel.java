@@ -3,10 +3,13 @@ package joeybic.jrpatrol.ui;
 import javax.swing.*;
 
 import joeybic.jrpatrol.*;
-import joeybic.jrpatrol.ui.*;
 
 public class BaseDBDisplayPanel extends BasePanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * The db display table
 	 */
