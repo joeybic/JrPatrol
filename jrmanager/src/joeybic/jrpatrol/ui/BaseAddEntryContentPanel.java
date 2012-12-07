@@ -166,5 +166,16 @@ public abstract class BaseAddEntryContentPanel extends JPanel
 		
 		fields.remove(fieldName);
 	}
+	
+	/**
+	 * Reset all fields
+	 */
+	public void reset()
+	{
+		for (BaseFieldWrapper<? extends JComponent> field : fields.values())
+		{
+			field.reset();
+		}
+	}
 		
 }

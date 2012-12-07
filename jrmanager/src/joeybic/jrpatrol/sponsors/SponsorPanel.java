@@ -5,6 +5,11 @@ import joeybic.jrpatrol.*;
 
 public class SponsorPanel extends BaseDBDisplayPanel
 {
+	/**
+	 * idk
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final String QUERY =
 		"SELECT sid, name FROM Sponsors ORDER BY sid";
 	

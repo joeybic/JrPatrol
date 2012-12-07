@@ -22,6 +22,11 @@ public abstract class BaseFieldWrapper<T extends JComponent>
 	protected EntryType type;
 	
 	/**
+	 * A default value for the field
+	 */
+	protected Object defaultValue;
+	
+	/**
 	 * Get the field
 	 * @return the field we are using
 	 */
@@ -65,15 +70,45 @@ public abstract class BaseFieldWrapper<T extends JComponent>
 	}
 	
 	/**
+	 * Get the default value for the field
+	 * @return the default value for the field
+	 */
+	public Object getDefaultValue()
+	{
+		return defaultValue;
+	}
+	
+	/**
+	 * Set the default value for the field
+	 * @param defaultValue the value to display when the field is reset
+	 */
+	public void setDefaultValue(Object defaultValue)
+	{
+		this.defaultValue = defaultValue;
+	}
+	
+	/**
+	 * Instantiate a field wrapper with a default value for the default value
+	 * @param field the field itself
+	 * @param type	the type of field
+	 * @throws IllegalArgumentException if field is null
+	 */
+	public BaseFieldWrapper(T field, EntryType type)
+	{
+		this(field, type, null);
+	}
+	
+	/**
 	 * Instantiate the field wrapper
 	 * @param field	The initial value for field (cannot be null)
 	 * @param type	The type of value to extract
 	 * @throws IllegalArgumentException if field is null
 	 */
-	public BaseFieldWrapper(T field, EntryType type) 
+	public BaseFieldWrapper(T field, EntryType type, Object defaultValue) 
 			throws IllegalArgumentException
 	{		
 		setField(field);
+		setDefaultValue(defaultValue);
 	}
 	
 	/**
@@ -81,4 +116,9 @@ public abstract class BaseFieldWrapper<T extends JComponent>
 	 * @return the value (boxed in an object) stored in the field
 	 */
 	public abstract Object extractValue();
+	
+	/**
+	 * Reset the field to it's default value
+	 */
+	public abstract void reset();
 }

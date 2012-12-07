@@ -1,7 +1,5 @@
 package joeybic.jrpatrol.juniors;
 
-import javax.swing.*;
-
 import joeybic.jrpatrol.ui.*;
 import joeybic.jrpatrol.*;
 

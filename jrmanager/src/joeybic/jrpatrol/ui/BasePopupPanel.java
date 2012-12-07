@@ -7,6 +7,11 @@ import joeybic.jrpatrol.Main;
 public class BasePopupPanel extends JPanel
 {
 	/**
+	 * Whatever
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The parent popup
 	 */
 	protected Popup popup;
@@ -17,11 +22,38 @@ public class BasePopupPanel extends JPanel
 	 */
 	private JComponent associatedControl;
 	
+	/**
+	 * CONSTRUCTOR
+	 */
+	public BasePopupPanel()
+	{
+		this(null);
+	}
+	
+	/**
+	 * CONSTRUCTOR
+	 * @param associatedControl	From whence we spawned
+	 */
+	public BasePopupPanel(JComponent associatedControl)
+	{
+		super();
+		setAssociatedControl(associatedControl);
+		setPopup(null);
+	}
+	
+	/**
+	 * Get the associated control
+	 * @return the control from whence we spawned
+	 */
 	public JComponent getAssociatedControl()
 	{
 		return associatedControl;
 	}
 	
+	/**
+	 * Set the associated control
+	 * @param associatedControl	The control from whence we spawned (or null if disabled)
+	 */
 	public void setAssociatedControl(JComponent associatedControl)
 	{
 		this.associatedControl = associatedControl;
@@ -100,6 +132,7 @@ public class BasePopupPanel extends JPanel
 			associatedControl.setEnabled(true);
 		}
 		
+		reset(); 
 		popup.hide();
 		popup = null;
 	}

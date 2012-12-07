@@ -31,11 +31,4 @@ public class IllegalFieldException extends RuntimeException
 		// TODO Auto-generated constructor stub
 	}
 
-	public IllegalFieldException(String message, Throwable cause,
-			boolean enableSuppression, boolean writableStackTrace)
-	{
-		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Auto-generated constructor stub
-	}
-
 }
